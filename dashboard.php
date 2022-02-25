@@ -24,7 +24,7 @@ if (mysqli_connect_errno())
 echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 if($_SESSION['usertype'] == 'admin'){
-$result = mysqli_query($con,"SELECT * FROM loginsys");
+$result = mysqli_query($con,"SELECT * FROM `loginsys`");
 
 echo "<table border='1'>
 <tr>

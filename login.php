@@ -18,36 +18,35 @@
          
         // Check user is exist in the database
         $query    = "SELECT * FROM `loginsys` WHERE  username='$username'
-                     AND password='" . md5($password) . "'";        
+                     AND password='" . md5($password) . "'";                
         $result = mysqli_query($conn, $query) or die(mysql_error());
-        $res = mysqli_fetch_array($result);
-        //print_r($res);
-        $role = $res['usertype'];
-        //$stat = $res['status'];
-        $stat = $res['status'];
-       $rows = mysqli_num_rows($result);
+        $res = mysqli_fetch_array($result); 
+         
+          @$role = $res['usertype'];        
+          @$stat = $res['status'];
+        $rows = mysqli_num_rows($result);
        
-        if ($stat == 1){       
+     
         if ($rows == 1) {
             $_SESSION['username'] = $username;
             $_SESSION['usertype'] = $role;
             
             // Redirect to user dashboard page
             header("Location: dashboard.php");
-        } else {
+        
+        }
+        else if ($stat == 1){       
+            echo ("please verify ur account");
+        }
+         else {
                      echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>
                   <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
                   </div>";
         }
         }
-        else {
-      
-            echo ("please verify ur account");
-        }
-        
-    } else {  
-
+  
+     
 ?>
     <form class="form" method="post" name="login">
         <h1 class="login-title">Login</h1>
@@ -56,9 +55,8 @@
         
         <input type="submit" value="Login" name="submit" class="login-button"/>
         <p class="link"><a href="registration.php">New Registration</a></p>
+        <p class="link"><a href="forget.php">reset password</a></p>
   </form>
-<?php
-    }
-?>
+
 </body>
 </html>

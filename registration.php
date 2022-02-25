@@ -25,14 +25,15 @@
          else{
              $status =0;
          }
-        //select query condition usertype = 'super'  
-      $query =  "SELECT * FROM `loginsys` WHERE usertype ='$usertype'";     
+        //select query condition usertype = 'super'   
+          $query =  "SELECT * FROM `loginsys` WHERE usertype = '$usertype'";     
         //if num_rows > 0
-        if ($result->num_rows > 1) {
-        // super admin exists
+        $result = mysqli_query($conn, $query);
 
-                }
-                else{
+        if ($result->num_rows > 0){
+          // output data of each row
+          while(($row = $result->fetch_assoc())); 
+          {
         
         $query  = "INSERT into `loginsys` (username, password, email, usertype , create_datetime, status)
                      VALUES ('$username', '" . md5($password) . "', '$email', '$usertype', '$create_datetime', '$status')";
@@ -50,8 +51,8 @@
                   </div>";
         }
     }
-}
-        //ends here
+} 
+     }     //ends here
      else {
 ?>
     <form class="form" action="" method="post">
